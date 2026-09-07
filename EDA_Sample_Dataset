@@ -1,0 +1,29 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load dataset
+df = pd.read_csv('student_marks.csv')
+
+# Display basic dataset details
+print("--- Dataset Info ---")
+print(df.info())
+print("\n--- Summary Statistics ---")
+print(df.describe())
+
+# Check for missing values
+print("\n--- Missing Values ---")
+print(df.isnull().sum())
+
+# Plot distribution of marks (assuming numeric columns exist)
+numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
+
+plt.figure(figsize=(10, 5))
+for col in numeric_cols:
+    sns.kdeplot(df[col], label=col)
+
+plt.title('Distribution of Student Marks')
+plt.xlabel('Marks')
+plt.ylabel('Density')
+plt.legend()
+plt.show()
